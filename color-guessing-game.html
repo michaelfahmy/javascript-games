@@ -1,0 +1,61 @@
+<html>
+<head>
+  <title>Color Guessing Game</title>
+  <script>
+    var colors = ["blue", "cyan", "gold", "gray", "green", "magenta", "orange", "red", "white", "yellow"];
+    var cnt = 0;
+
+    function do_game() {
+			target = colors[Math.floor(Math.random() * colors.length)];
+			alert("My Color is " + target);
+      do {
+        var guessed = prompt("I am thinking of one of these colors:\n\n" +
+              colors.join(", ") + "\n\n" +
+              "What colors am I thinking of?");
+        cnt++;
+
+      } while(!check_guess(guessed));
+    }
+
+    function check_guess( color ) {
+      if (colors.indexOf(color) == -1) {
+        alert("Sorry, I don't recognize your color.\n\n" + "Please try again.");
+        return false;
+      }
+      if (color > target) {
+        alert("Sorry, your guess isn't correct!\n\n" + "Hint: your color is alphabetically higher than mine.\n\n" + "Please try again.");
+        return false;
+      }
+      if (color < target) {
+        alert("Sorry, your guess isn't correct!\n\n" + "Hint: your color is alphabetically lower than mine.\n\n" + "Please try again.");
+        return false;
+      }
+      if (color == target) {
+        body = document.getElementsByTagName("body")[0];
+        body.style.background = target;
+        alert("Congratulations! You have guessed the color!\n\n" +
+              "It took you " + cnt + " guesses to finish the game!\n\n" +
+              "You can see the color in the background.");
+        return true;
+      }
+    }
+/*
+    function exist(color) {
+      var i = 0;
+      while(i < colors.length){
+        if(colors[i] == color)
+          return true;
+        i++;
+      }
+      return false;
+    }
+*/
+
+  </script>
+</head>
+
+<body onload="do_game()">
+
+
+</body>
+</html>

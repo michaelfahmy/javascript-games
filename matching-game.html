@@ -1,0 +1,79 @@
+<html>
+<head>
+  <title>Matching Game</title>
+  <style>
+    img {
+      position: absolute;
+    }
+    div {
+      position: absolute;
+      width: 500px;
+      height: 500px;
+    }
+    #rightSide {
+      left: 50%;
+      border-left: 1px solid black;
+    }
+  </style>
+
+	<script>
+
+		var numOfFaces = 5;
+
+		function generateFaces() {
+
+			leftSide = document.getElementById("leftSide");
+			rightSide = document.getElementById("rightSide");
+
+			for(var i = 0; i < numOfFaces; i++) {
+				var img = document.createElement("img");
+				img.src = "smile.png";
+				img.style.top =  Math.floor(Math.random() * 400);
+				img.style.left = Math.floor(Math.random() * 500);
+
+				leftSide.appendChild(img);
+			}
+
+			var imgs = leftSide.cloneNode(true);
+			imgs.removeChild(imgs.lastChild);
+			rightSide.appendChild(imgs)
+
+      leftSide.lastChild.onclick = function nextLevel( event ) {
+        event.stopPropagation();
+        numOfFaces += 5;
+        deleteFaces();
+        generateFaces();
+      };
+
+      document.body.onclick = function gameOver( event ) {
+        alert("Game Over!\n\nYour Score is " + (numOfFaces-5) );
+        document.body.onclick = null;
+        leftSide.lastChild.onclick = null;
+      }
+
+		}
+
+    function deleteFaces() {
+      while(leftSide.firstChild)
+        leftSide.removeChild(leftSide.firstChild);
+      while(rightSide.firstChild)
+        rightSide.removeChild(rightSide.firstChild);
+    }
+
+	</script>
+
+</head>
+
+<body onload="generateFaces();">
+
+  <h1>Matching Game</h1>
+  <h4>Click on the extra smiling face on the left.</h4>
+
+  <div id="leftSide">
+  </div>
+
+  <div id="rightSide">
+  </div>
+
+</body>
+</html>
